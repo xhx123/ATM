@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,7 +48,8 @@ class   OpenAccount extends JDialog implements ActionListener
 	JTextField customer_name=new JTextField(15);
 	JTextField customer_city=new JTextField(15);
 	JTextField customer_street=new JTextField(15);
-	JTextField balance=new JTextField(15); 
+	JTextField balance=new JTextField(15);
+	JTextField card_number=new JTextField(15);
 	JComboBox card_style = new JComboBox(names); 
 	/*JComboBox credit = new JComboBox(names2); */
 	JPasswordField txtPwd1=new JPasswordField(15);//密码框
@@ -76,7 +78,9 @@ class   OpenAccount extends JDialog implements ActionListener
 	    p3.add(customer_street);*/
 	    p3.add(new JLabel("          存款:"));
 	    p3.add(balance);
-	    /*p5.add(new JLabel("卡类型:"));
+		p3.add(new JLabel("输入5位卡号"));
+		p3.add(card_number);
+		/*p5.add(new JLabel("卡类型:"));
 	    p5.add(card_style);*/
 	    /*p5.add(new JLabel("                                     信用额度:"));
 	    p5.add(credit);*/
@@ -143,20 +147,27 @@ class   OpenAccount extends JDialog implements ActionListener
 	    	String pas2 = new String(txtPwd2.getPassword());
 	    	if(pas1.equals(pas2))//判断用户两次输入的密码是否相同
 	    	{
-	    		//系统自动生成卡号、存款账号和贷款账号
-		    	DatabaseOperate makeNum = new DatabaseOperate();
-		    	
-		    	//生成以1开头的5位随机数作为卡号
-		    	int pcn=(int)(Math.random()*100)+10000;
-		    	Card_number = makeNum.CnPreclude(Integer.toString(pcn));
-		    	ID[0] = Card_number;
+				String card = card_number.getText();
+				if (!Pattern.matches("\\d{5}",card)){
+					JOptionPane.showMessageDialog(null,"请输入5位数字卡号！");
+					return;
+				}
+				DatabaseOperate makeNum = new DatabaseOperate();
+
+				if (makeNum.login(card) != null) {
+					JOptionPane.showMessageDialog(null,"卡号已经被注册！");
+					return;
+				}
+
+				//Card_number = makeNum.CnPreclude(Integer.toString(pcn));
+		    	ID[0] = card;
 		    			   
-		    	//生成以2开头的3位随机数作为存款账号
+
 		    	int pan=(int)(Math.random()*100)+200;
 		    	Account_number = makeNum.depositorNum(Integer.toString(pan));
 		    	ID[1] = Account_number;
 		    	
-		    	//生成以3开头的3位随机数作为贷款账号
+
 		    	int pln=(int)(Math.random()*100)+300;
 		    	Loan_number = makeNum.borrowerNum(Integer.toString(pln));
 		    	ID[2] = Loan_number;

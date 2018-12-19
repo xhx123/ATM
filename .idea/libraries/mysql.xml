@@ -6,9 +6,13 @@
       <root url="jar://F:/jsp/mysql/commons-dbcp-1.3.jar!/" />
       <root url="jar://F:/jsp/mysql/commons-collections-3.2.1.jar!/" />
       <root url="file://F:/jsp/mysql" />
+      <root url="file://F:/迅雷下载/java工具/mysql-connector-java-5.1.44" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://F:/迅雷下载/java工具/mysql-connector-java-5.1.44/src" />
+    </SOURCES>
     <jarDirectory url="file://F:/jsp/mysql" recursive="false" />
+    <jarDirectory url="file://F:/迅雷下载/java工具/mysql-connector-java-5.1.44" recursive="false" />
   </library>
 </component>

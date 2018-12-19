@@ -77,10 +77,10 @@ class BankSystem extends JDialog implements ActionListener {
 		{
 			String password = new String(txtPwd.getPassword());
 			
-			if ((txtUserName.getText().trim().equals("admin"))
-					&& (password.equals("admin"))) {
+			if ((txtUserName.getText().trim().equals("root"))
+					&& (password.equals("root"))) {
 				JOptionPane.showMessageDialog(null,
-						"您好,Administrator!");
+						"admin用户登录成功");
 				dispose();
 				new AdminFrame();
 			} 
@@ -89,12 +89,12 @@ class BankSystem extends JDialog implements ActionListener {
 				s = myLogin.login(txtUserName.getText().trim());
 				if (s!=null && (txtUserName.getText().trim().equals(s[2].trim()))
 						&& (password.equals(s[3].trim()))) {
-					JOptionPane.showMessageDialog(null, "欢迎普通用户，登录成功!");
+					JOptionPane.showMessageDialog(null, "普通用户");
 					dispose();
 					new MainFrame();
 				} 
 				else {
-					JOptionPane.showMessageDialog(null, "用户名或密码错误，请重新登录！",
+					JOptionPane.showMessageDialog(null, "密码错误",
 							"警告", JOptionPane.ERROR_MESSAGE);
 				}
 			}
